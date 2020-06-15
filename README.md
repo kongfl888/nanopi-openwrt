@@ -1,6 +1,6 @@
 ## Nanopi r2s openwrt 自用固件
 
-![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal2/badge.svg)  ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg)  ![r2s original Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20original%20Build%20%E5%8E%9F%E7%89%88friendlywrt/badge.svg)
+![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal2/badge.svg)  ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg) ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) ![r2s original Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20original%20Build%20%E5%8E%9F%E7%89%88friendlywrt/badge.svg)
 
 ### 代码说明
 
@@ -28,11 +28,13 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
 
-[纯friendlywrt版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s+original+Build+%E5%8E%9F%E7%89%88friendlywrt%22)（打 ✔ 的）
+[friendlywrt原版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s+original+Build+%E5%8E%9F%E7%89%88friendlywrt%22)（打 ✔ 的）
+
+[friendlywrt官版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s%20%E5%AE%98%E7%89%88friendlywrt%22)（打 ✔ 的）
 
 （彻底解压出来，img包才是最终固件格式）
 
-其中，Original版（纯friendlywrt版）使用的是[klever1988维护的固件代码](https://github.com/klever1988/friendlywrt)，并非[原官方](https://github.com/friendlyarm/friendlywrt)的版本。
+其中，friendlywrt原版使用的是[klever1988维护的固件代码](https://github.com/klever1988/friendlywrt)，并非[原官方](https://github.com/friendlyarm/friendlywrt)的版本。
 
 ### 温馨提示：
 

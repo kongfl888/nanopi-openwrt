@@ -10,6 +10,6 @@ find device/ -name distfeeds.conf -delete
 #[ -f kernel/arch/arm64/configs/nanopi-r2_linux_defconfig ] && sed -i 's/CONFIG_BPFILTER=y/CONFIG_BPFILTER=n/' kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
 #[ -f kernel/arch/arm64/configs/nanopi-r2_linux_defconfig ] && sed -i 's/CONFIG_NFT_FLOW_OFFLOAD=m/CONFIG_NFT_FLOW_OFFLOAD=y/' kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
 
-[ -f configs/config_rk3328 ] && echo -e '\nCONFIG_KERNEL_BUILD_USER="Dayong Chen"\nCONFIG_GRUB_TITLE="OpenWrt on Nanopi devices compiled by DayongChen"' >> configs/config_rk3328
+[ -f configs/config_rk3328 ] && sed -i '/CONFIG_KERNEL_BUILD_USER/d' configs/config_rk3328 >/dev/null 2>&1 && echo -e '\nCONFIG_KERNEL_BUILD_USER="kongfl888"\nCONFIG_GRUB_TITLE="OpenWrt on Nanopi devices compiled by kongfl888"' >> configs/config_rk3328
 [ -f configs/config_h5 ]     && echo -e '\nCONFIG_KERNEL_BUILD_USER="Dayong Chen"\nCONFIG_GRUB_TITLE="OpenWrt on Nanopi devices compiled by DayongChen"' >> configs/config_h5
 [ -f configs/config_h3 ]     && echo -e '\nCONFIG_KERNEL_BUILD_USER="Dayong Chen"\nCONFIG_GRUB_TITLE="OpenWrt on Nanopi devices compiled by DayongChen"' >> configs/config_h3

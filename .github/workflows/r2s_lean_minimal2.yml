@@ -55,6 +55,7 @@ jobs:
         run: |
           cd friendlywrt-rk3328
           . ../remove_unused_config.sh
+          . ../patch_dosth.sh
           cat configs/config_rk3328 | grep "TARGET" >> ../base_rk3328.seed
           cat ../base_rk3328.seed > configs/config_rk3328
           echo '
@@ -113,6 +114,8 @@ jobs:
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
           CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_luci-app-zerotier=y
+          CONFIG_PACKAGE_kmod-br-netfilter=y
+          CONFIG_BRIDGE_NETFILTER=m
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_nlbwmon is not set

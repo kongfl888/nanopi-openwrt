@@ -1,4 +1,6 @@
-## Nanopi r2s openwrt 固件自动编译
+## Nanopi r2s openwrt 自用固件
+
+![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal2/badge.svg)  ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg)  ![r2s original Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20original%20Build%20%E5%8E%9F%E7%89%88friendlywrt/badge.svg)
 
 ### 代码说明
 
@@ -10,38 +12,43 @@
 
 minimal版本就是Lean版opwenwrt的最小编译，加入Turbo加速和一两个VPN插件和广告插件跟KMS等（不含多播），是原作者主力维护的版本
 
-而minimal2则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)和下载工具。软路由空间大，没个samba实在是浪费。
+而minimal2 ——本人日常版本—— 则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)、下载工具和硬盘休眠，以及家庭网络必备的minidlna。再挂个QOS留用。软路由空间大，没个samba实在是浪费。
 
-多播还是没有，因为我这边好像不支持多播，测试不了所以不想加。
+多播还是没有，因为我这边好像不支持多播，测试不了所以不想加（好吧，因为iptv所以一起加了）。另，[关于MWAN3掉线的解决方案](https://koolshare.cn/thread-150601-1-1.html)（可以改用114DNS）
 
 对了，docker也没有。
 
-usb-wifi驱动有，就网上常见的芯片，
+usb-wifi驱动有，就网上常见的芯片，👇
 
-![支持列表](http://wiki.friendlyarm.com/wiki/images/f/f9/R2swrt%2Busbwifi-08.jpg)。
+![支持列表](./assets/R2swrt-usbwifi-08.jpg)
 
-建议不要对它抱有太大的期望。
+建议不要对它抱有太大的期望。👆
 
 ### 发布地址：
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
 
+[纯friendlywrt版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s+original+Build+%E5%8E%9F%E7%89%88friendlywrt%22)（打 ✔ 的）
+
 （彻底解压出来，img包才是最终固件格式）
+
+其中，Original版（纯friendlywrt版）使用的是[klever1988维护的固件代码](https://github.com/klever1988/friendlywrt)，并非[原官方](https://github.com/friendlyarm/friendlywrt)的版本。
 
 ### 温馨提示：
 
-Lean版的默认用户名是root, 密码是password  
-Lienol版默认用户名是root, 密码为空
+路由器登陆页面： http://friendlywrt/
 
-烧制完固件插入tf卡并启动完成，电脑端显示“网络（已连接）”之后，在浏览器输入 http://friendlywrt/ 可以直接打开路由器后台，无需修改本地连接设置或者查看IP地址。如果网络状态一直是未识别（上电超过5分钟），请直接插拔一次电源重启试试。
+默认用户名是root, 密码是 password 或 空密码。
 
-tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至少2GB。
+tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至少4GB。开机后连不上，等待5分钟后直接断电重启！
 
 ### 更新说明：
 
 [核心更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md)
 
-未知问题：bpfilter/netfilter偶尔抽风导致网口链接丢失，具体原因未知。
+未知问题：bpfilter/netfilter偶尔抽风导致网口连接丢失，具体原因未知。
+
+（所有minimal版本都存在该现象）
 
 #### 本固件(minimal版本)NAT基准性能测试：
 

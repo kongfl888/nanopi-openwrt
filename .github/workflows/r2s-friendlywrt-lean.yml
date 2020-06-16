@@ -176,6 +176,9 @@ jobs:
           mkdir -p ./artifact/
           gzip rk3328/out/FriendlyWrt*.img
           cp rk3328/out/FriendlyWrt*.img.gz ./artifact/
+          cd ./artifact/
+          md5sum *img* > md5sum.txt
+          cd ..
           release_tag="R2S-Friendlywrt-Lean-$(date +%Y-%m-%d-%H)"
           echo "##[set-output name=release_tag;]$release_tag"
 

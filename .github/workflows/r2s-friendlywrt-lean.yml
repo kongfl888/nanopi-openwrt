@@ -10,7 +10,7 @@ on:
       - 'config_rk3328_chuck'
       - 'nanopi-r2_linux_defconfig'
   schedule:
-    - cron: '00 18 * * *'
+    - cron: '00 18 * * 2,4,6'
   watch:
     types: [started]
 

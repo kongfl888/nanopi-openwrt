@@ -1,16 +1,18 @@
 ## Nanopi r2s openwrt 自用固件
 
-![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal2/badge.svg)  ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg) ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) ![r2s original Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20original%20Build%20%E5%8E%9F%E7%89%88friendlywrt/badge.svg)
+![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal2/badge.svg) ![r2s-friendlywrt-lean](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s-friendlywrt-lean/badge.svg) ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg)  ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) 
 
 ### 代码说明
 
-本库派生自 [klever1988/nanopi-openwrt](https://github.com/klever1988/nanopi-openwrt)，并由该作者主力维护
+本库派生自 [klever1988/nanopi-openwrt](https://github.com/klever1988/nanopi-openwrt) 和 [fanck0605/nanopi-r2s](https://github.com/fanck0605/nanopi-r2s)，并由这两个作者主力维护.
 
 ### 固件说明
 
 本固件是friendlywrt和openwrt混编的结果，前者为基后者为主。
 
 minimal版本就是Lean版opwenwrt的最小编译，加入Turbo加速和一两个VPN插件和广告插件跟KMS等（不含多播），是原作者主力维护的版本
+
+r2s-friendlywrt-lean版是基于[fanck0605/friendlywrt-lean](https://github.com/fanck0605/friendlywrt-lean) 编译的版本，friendlywrt-lean由该作者主动维护，它的代码比较整洁。
 
 而minimal2 ——本人日常版本—— 则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)、下载工具和硬盘休眠，以及家庭网络必备的minidlna。再挂个QOS留用。软路由空间大，没个samba实在是浪费。
 
@@ -28,13 +30,10 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
 
-[friendlywrt原版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s+original+Build+%E5%8E%9F%E7%89%88friendlywrt%22)（打 ✔ 的）
-
 [friendlywrt官版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s%20%E5%AE%98%E7%89%88friendlywrt%22)（打 ✔ 的）
 
 （彻底解压出来，img包才是最终固件格式）
 
-其中，friendlywrt原版使用的是[klever1988维护的固件代码](https://github.com/klever1988/friendlywrt)，并非[原官方](https://github.com/friendlyarm/friendlywrt)的版本。
 
 ### 温馨提示：
 
@@ -55,3 +54,12 @@ tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至�
 #### 本固件(minimal版本)NAT基准性能测试：
 
 <img src="https://github.com/klever1988/nanopi-openwrt/raw/master/assets/NAT.jpg" width="600" /><img src="https://raw.githubusercontent.com/klever1988/nanopi-openwrt/master/assets/Acc.jpg" width="250" />
+
+### 致谢
+
+- [openwrt/openwrt](https://github.com/openwrt/openwrt)
+- [friendlyarm/friendlywrt](https://github.com/friendlyarm/friendlywrt)
+- [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
+- [klever1988/friendlywrt ](https://github.com/klever1988/friendlywrt)
+- [fanck0605/friendlywrt-lean](https://github.com/fanck0605/friendlywrt-lean)
+- 等

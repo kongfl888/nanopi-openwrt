@@ -1,11 +1,11 @@
-name: r2s Lean版openwrt minimal 
+name: r2s Lean-openwrt minimal2
 
 on:
   push:
     branches:
       - master
     paths:
-      - '.github/workflows/r2s_lean_minimal.yml'
+      - '.github/workflows/r2s_lean_minimal2.yml'
   schedule:
     - cron: '10 08 * * *'
 
@@ -77,6 +77,15 @@ jobs:
           CONFIG_LIBSODIUM_MINIMAL=y
           CONFIG_PACKAGE_ddns-scripts_aliyun=y
           CONFIG_PACKAGE_ddns-scripts_cloudflare.com-v4=y
+          CONFIG_PACKAGE_qbittorrent=y
+          CONFIG_PACKAGE_rblibtorrent=y
+          CONFIG_PACKAGE_autosamba=y
+          CONFIG_PACKAGE_samba4=y
+          CONFIG_PACKAGE_samba4-server=y
+          CONFIG_PACKAGE_samba4-libs=y
+          CONFIG_PACKAGE_luci-app-samba4=y
+          CONFIG_PACKAGE_luci-i18n-samba4-zh-cn=y
+          CONFIG_PACKAGE_luci-app-qbittorrent=y
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_DNS2SOCKS=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
@@ -203,8 +212,8 @@ jobs:
           md5sum *img* > md5sum.txt
           cd ..
           zip -r artifact.zip ./artifact/
-          #release_tag="R2S-Lean-$(date +%Y-%m-%d)-Minimal"
-          release_tag="R2S-Minimal-$(date +%Y-%m-%d)"
+          #release_tag="R2S-Lean-$(date +%Y-%m-%d)-Minimal2"
+          release_tag="R2S-Minimal2-$(date +%Y-%m-%d)"
           echo "##[set-output name=release_tag;]$release_tag"
       - name: Create Release
         id: create_release

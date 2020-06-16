@@ -230,6 +230,9 @@ jobs:
           mkdir -p ./artifact/
           mv friendlywrt-rk3328/out/*img* ./artifact/
           cp friendlywrt-rk3328/friendlywrt/.config ./artifact/
+          cd ./artifact/
+          md5sum *img* > md5sum.txt
+          cd ..
           zip -r artifact.zip ./artifact/
           #release_tag="R2S-Lean-$(date +%Y-%m-%d-%H)-Minimal2"
           release_tag="R2S-Minimal2-$(date +%Y-%m-%d-%H)"

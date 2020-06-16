@@ -11,7 +11,7 @@ on:
       - 'nanopi-r2_linux_defconfig'
       - 'CHANGELOG.md'
   schedule:
-    - cron: '00 18 * * *'
+    - cron: '00 18 * * 2,4,6'
   watch:
     types: [started]
 

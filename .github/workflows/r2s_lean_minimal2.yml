@@ -78,6 +78,8 @@ jobs:
           CONFIG_LIBSODIUM_MINIMAL=y
           CONFIG_PACKAGE_ddns-scripts_aliyun=y
           CONFIG_PACKAGE_ddns-scripts_cloudflare.com-v4=y
+          CONFIG_PACKAGE_adguardhome=y
+          CONFIG_PACKAGE_luci-app-adguardhome=y
           CONFIG_PACKAGE_qbittorrent=y
           CONFIG_PACKAGE_rblibtorrent=y
           CONFIG_PACKAGE_autosamba=y
@@ -189,6 +191,13 @@ jobs:
           #mv ../../scripts/autoupdate2.sh package/base-files/files/root/au.sh && chmod +x package/base-files/files/root/au.sh
           mv ../../scripts/flash_rom.sh package/base-files/files/root/flash_rom.sh && chmod +x package/base-files/files/root/flash_rom.sh
           echo -e '\nMr.K Build\n' >> package/base-files/files/etc/banner
+
+      - name: Add AdGuardHome
+        run: |
+          git clone -b master --single-branch https://github.com/rufengsuixing/luci-app-adguardhome
+          mv luci-app-adguardhome friendlywrt-rk3328/friendlywrt/package
+          mkdir -p friendlywrt-rk3328/friendlywrt/package/adguardhome && cd friendlywrt-rk3328/friendlywrt/package/adguardhome
+          wget https://raw.githubusercontent.com/Lienol/openwrt/dev-19.07/package/diy/adguardhome/Makefile
 
       - name: Add OpenClash
         run: |

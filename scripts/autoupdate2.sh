@@ -19,7 +19,7 @@ unzip R2S*.zip
 rm R2S*.zip
 if [ -f /mnt/mmcblk0p2/artifact/FriendlyWrt*.img.gz ]; then
     cd /mnt/mmcblk0p2/artifact/
-    if [ `md5sum -c md5sum.txt|grep -c "OK"` -eq 0 ]; then
+    if [ `sha256sum -c sha256sum.txt|grep -c "OK"` -eq 0 ]; then
         echo -e '\e[91m固件HASH值匹配失败，脚本退出\e[0m'
 		exit 1
     fi

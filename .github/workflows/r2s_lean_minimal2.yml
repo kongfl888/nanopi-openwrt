@@ -133,6 +133,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
           CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
           CONFIG_PACKAGE_luci-app-openclash=y
+          CONFIG_PACKAGE_luci-app-r2sflasher=y
           CONFIG_PACKAGE_luci-app-zerotier=y
           CONFIG_PACKAGE_kmod-br-netfilter=y
           CONFIG_BRIDGE_NETFILTER=m
@@ -200,6 +201,11 @@ jobs:
           mv luci-app-adguardhome friendlywrt-rk3328/friendlywrt/package
           mkdir -p friendlywrt-rk3328/friendlywrt/package/adguardhome && cd friendlywrt-rk3328/friendlywrt/package/adguardhome
           wget https://raw.githubusercontent.com/Lienol/openwrt/dev-19.07/package/diy/adguardhome/Makefile
+
+      - name: Add Luci-app-r2sflasher
+        run: |
+          git clone -b master --single-branch https://github.com/kongfl888/luci-app-r2sflasher.git
+          mv luci-app-r2sflasher friendlywrt-rk3328/friendlywrt/package
 
       - name: Add OpenClash
         run: |

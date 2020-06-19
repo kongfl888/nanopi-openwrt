@@ -101,6 +101,8 @@ jobs:
           CONFIG_PACKAGE_luci-app-qos=y
           CONFIG_PACKAGE_luci-app-sqm=y
           CONFIG_PACKAGE_luci-i18n-qos-zh-cn=y
+          CONFIG_PACKAGE_iptvhelper=y
+          CONFIG_PACKAGE_luci-app-iptvhelper=y
           CONFIG_PACKAGE_mwan3=y
           CONFIG_PACKAGE_luci-app-mwan3=y
           CONFIG_PACKAGE_luci-i18n-mwan3-zh-cn=y
@@ -201,6 +203,14 @@ jobs:
           mv luci-app-adguardhome friendlywrt-rk3328/friendlywrt/package
           mkdir -p friendlywrt-rk3328/friendlywrt/package/adguardhome && cd friendlywrt-rk3328/friendlywrt/package/adguardhome
           wget https://raw.githubusercontent.com/Lienol/openwrt/dev-19.07/package/diy/adguardhome/Makefile
+
+      - name: Add IPTV Helper
+        run: |
+          git clone -b master --single-branch https://github.com/riverscn/openwrt-iptvhelper.git
+          mv openwrt-iptvhelper/iptvhelper friendlywrt-rk3328/friendlywrt/package
+          mv openwrt-iptvhelper/luci-app-iptvhelper friendlywrt-rk3328/friendlywrt/package
+          sed -i 's/+luci-compat //' friendlywrt-rk3328/friendlywrt/package/luci-app-iptvhelper/Makefile
+          sed -i 's/+luci-compat//g' friendlywrt-rk3328/friendlywrt/package/luci-app-iptvhelper/Makefile
 
       - name: Add Luci-app-r2sflasher
         run: |

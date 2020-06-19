@@ -1,8 +1,10 @@
-## Nanopi r2s openwrt 固件自动编译
+## Nanopi r2s openwrt 自用固件
+
+![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean-openwrt%20minimal2/badge.svg) ![r2s-friendlywrt-lean](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s-friendlywrt-lean/badge.svg) ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg)  ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) 
 
 ### 代码说明
 
-本库派生自 [klever1988/nanopi-openwrt](https://github.com/klever1988/nanopi-openwrt)，并由该作者主力维护
+本库派生自 [klever1988/nanopi-openwrt](https://github.com/klever1988/nanopi-openwrt) 和 [fanck0605/nanopi-r2s](https://github.com/fanck0605/nanopi-r2s)，并由这两个作者主力维护.
 
 ### 固件说明
 
@@ -10,39 +12,61 @@
 
 minimal版本就是Lean版opwenwrt的最小编译，加入Turbo加速和一两个VPN插件和广告插件跟KMS等（不含多播），是原作者主力维护的版本
 
-而minimal2则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)和下载工具。软路由空间大，没个samba实在是浪费。
+r2s-friendlywrt-lean版是基于[fanck0605/friendlywrt-lean](https://github.com/fanck0605/friendlywrt-lean) 编译的版本，friendlywrt-lean由该作者主动维护，它的代码比较整洁。
 
-多播还是没有，因为我这边好像不支持多播，测试不了所以不想加。
+而minimal2 ——本人日常版本—— 则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)、下载工具和硬盘休眠，以及家庭网络必备的minidlna。再挂个QOS留用。软路由空间大，没个samba实在是浪费。
+
+多播还是没有，因为我这边好像不支持多播，测试不了所以不想加（好吧，因为iptv所以一起加了）。另，[关于MWAN3掉线的解决方案](https://koolshare.cn/thread-150601-1-1.html)（可以改用114DNS）、[IPTV教程](https://github.com/riverscn/openwrt-iptvhelper/blob/master/README.md)
 
 对了，docker也没有。
 
-usb-wifi驱动有，就网上常见的芯片，
+usb-wifi驱动有，就网上常见的芯片，👇
 
-![支持列表](http://wiki.friendlyarm.com/wiki/images/f/f9/R2swrt%2Busbwifi-08.jpg)。
+![支持列表](./assets/R2swrt-usbwifi-08.jpg)
 
-建议不要对它抱有太大的期望。
+建议不要对它抱有太大的期望。👆
 
 ### 发布地址：
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
 
+[friendlywrt官版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s%20%E5%AE%98%E7%89%88friendlywrt%22)（打 ✔ 的）
+
 （彻底解压出来，img包才是最终固件格式）
+
 
 ### 温馨提示：
 
-Lean版的默认用户名是root, 密码是password  
-Lienol版默认用户名是root, 密码为空
+路由器登陆页面： http://friendlywrt/
 
-烧制完固件插入tf卡并启动完成，电脑端显示“网络（已连接）”之后，在浏览器输入 http://friendlywrt/ 可以直接打开路由器后台，无需修改本地连接设置或者查看IP地址。如果网络状态一直是未识别（上电超过5分钟），请直接插拔一次电源重启试试。
+默认用户名是root, 密码是 password 或 空密码。
 
-tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至少2GB。
+### 三外设说明：
+
+tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至少4GB。开机后连不上，等待5分钟后直接断电重启！
+
+电流不稳或波动大直接影响板子的正常运行
+
+USB可能会导致IO流冲突，因为有一个千兆网口就是USB3转过来的
 
 ### 更新说明：
 
 [核心更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md)
 
-未知问题：bpfilter/netfilter偶尔抽风导致网口链接丢失，具体原因未知。
+未知问题：bpfilter/netfilter偶尔抽风导致网口连接丢失，具体原因未知。
+
+（所有minimal版本都存在该现象）
 
 #### 本固件(minimal版本)NAT基准性能测试：
 
 <img src="https://github.com/klever1988/nanopi-openwrt/raw/master/assets/NAT.jpg" width="600" /><img src="https://raw.githubusercontent.com/klever1988/nanopi-openwrt/master/assets/Acc.jpg" width="250" />
+
+### 致谢
+
+- [openwrt/openwrt](https://github.com/openwrt/openwrt)
+- [friendlyarm/friendlywrt](https://github.com/friendlyarm/friendlywrt)
+- [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
+- [klever1988/friendlywrt ](https://github.com/klever1988/friendlywrt)
+- [fanck0605/friendlywrt-lean](https://github.com/fanck0605/friendlywrt-lean)
+- 各位插件大佬
+- 等

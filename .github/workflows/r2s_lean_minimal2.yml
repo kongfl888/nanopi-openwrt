@@ -254,14 +254,20 @@ jobs:
       - name: Assemble Artifact
         id: assemble_artifact
         run: |
-          rm -rf ./artifact/
-          mkdir -p ./artifact/
-          mv friendlywrt-rk3328/out/*img* ./artifact/
-          cp friendlywrt-rk3328/friendlywrt/.config ./artifact/
-          cd ./artifact/
+          rm -rf ./r2srom/
+          mkdir -p ./r2srom/
+          mv friendlywrt-rk3328/out/*img* ./r2srom/
+          cp friendlywrt-rk3328/friendlywrt/.config ./r2srom/
+          cd ./r2srom/
           sha256sum *img* > sha256sum.txt
           cd ..
-          zip -r artifact.zip ./artifact/
+          mkdir -p ./r2srom/ipk/
+          . ./scripts/copyipk.sh
+          cd ./r2srom/ipk/
+          sha256sum *ipk > packages.sha256
+          cd ../../
+          cp ./README.txt ./r2srom/
+          zip -r artifact.zip ./r2srom/
           #release_tag="R2S-Lean-$(date +%Y-%m-%d-%H)-Minimal2"
           release_tag="R2S-Minimal2-$(date +%Y-%m-%d-%H)"
           echo "##[set-output name=release_tag;]$release_tag"

@@ -8,7 +8,7 @@ on:
       - 'JUNK/r2s.config.seed'
       - '.github/workflows/r2s_original2.yml'
   schedule:
-    - cron: '30 16 * * 0,6'
+    - cron: '30 16 * * 6'
 
 jobs:
 
@@ -57,8 +57,14 @@ jobs:
           #cp ../JUNK/r2s.config.seed configs/config_rk3328
           echo '
           CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          CONFIG_PACKAGE_luci-app-r2sflasher=y
           ' >> configs/config_rk3328
-          
+
+      - name: Add Luci-app-r2sflasher
+        run: |
+          git clone -b master --single-branch https://github.com/kongfl888/luci-app-r2sflasher.git
+          mv luci-app-r2sflasher friendlywrt-rk3328/friendlywrt/package
+
       - name: Clean Feeds
         run: |
           cd friendlywrt-rk3328/friendlywrt

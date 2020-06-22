@@ -33,6 +33,16 @@ sleep 1s
 /etc/init.d/mwan3helper disable
 /etc/init.d/iptvhelper disable
 
+# fix autorewan
+if [ -e "/etc/init.d/autorewan" ]; then
+    DATE=`date +[%Y-%m-%d]%H:%M:%S`
+    echo $DATE" One time init Script: fix autorewan" >> /tmp/one_time_init.log
+    /etc/init.d/autorewan enable
+    chmod +x /etc/init.d/autorewan
+    [ -e "/usr/bin/dorewan" ] && chmod +x /usr/bin/dorewan
+    /etc/init.d/autorewan restart >/dev/null 2>&1
+fi
+
 sleep 2s
 
 # set ipaddr

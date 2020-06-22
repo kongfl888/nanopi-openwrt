@@ -18,6 +18,8 @@ r2s-friendlywrt-lean版是基于[fanck0605/friendlywrt-lean](https://github.com/
 
 多播还是没有，因为我这边好像不支持多播，测试不了所以不想加（好吧，因为iptv所以一起加了）。另，[关于MWAN3掉线的解决方案](https://koolshare.cn/thread-150601-1-1.html)（可以改用114DNS）、[IPTV教程](https://github.com/riverscn/openwrt-iptvhelper/blob/master/README.md)
 
+而lite2则是在minimal2基础上再去掉各种不可说和多拨以及某些策略代理插件（反正就是防火墙应用尽可能少）。minimal2和lite2都带网络自检
+
 对了，docker也没有。
 
 usb-wifi驱动有，就网上常见的芯片，👇
@@ -34,6 +36,13 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 （彻底解压出来，img包才是最终固件格式）
 
+### 一些软件包
+
+含MWAN3负载均衡、IPTV助手、adgurdhome、adbuby-plus、syncdial多拨、[r2s刷机助手](https://github.com/kongfl888/luci-app-r2sflasher/releases)、[定时重拨助手](https://github.com/kongfl888/luci-app-autorewan/releases)。
+
+可直接上传到路由器安装：[IPK分流](https://kongfl888.lanzous.com/b04sj203c) （密码:abw4）（仅仅适用于minimal系列，其他未测，但基本能装上就能用）
+
+[其他R2S可用的软件包](https://github.com/kongfl888/r2s-openwrt-packages/blob/master/README.md)
 
 ### 温馨提示：
 
@@ -53,16 +62,13 @@ USB可能会导致IO流冲突，因为有一个千兆网口就是USB3转过来�
 
 [核心更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md)
 
-未知问题：bpfilter/netfilter偶尔抽风导致网口连接丢失，具体原因未知。
-
-（所有minimal版本都存在该现象）
-
 #### 本固件(minimal版本)NAT基准性能测试：
 
 <img src="https://github.com/klever1988/nanopi-openwrt/raw/master/assets/NAT.jpg" width="600" /><img src="https://raw.githubusercontent.com/klever1988/nanopi-openwrt/master/assets/Acc.jpg" width="250" />
 
 ### 致谢
 
+- [friendlyarm.com](http://wiki.friendlyarm.com/wiki/index.php/How_to_Build_FriendlyWrt/zh)
 - [openwrt/openwrt](https://github.com/openwrt/openwrt)
 - [friendlyarm/friendlywrt](https://github.com/friendlyarm/friendlywrt)
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)

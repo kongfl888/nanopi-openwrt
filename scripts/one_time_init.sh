@@ -45,6 +45,16 @@ fi
 
 sleep 2s
 
+# remove ddns
+if [ "${1}" = "1" ]; then
+    #lite2
+    DATE=`date +[%Y-%m-%d]%H:%M:%S`
+    echo $DATE" One time init Script: remove ddns" >> /tmp/one_time_init.log
+    opkg remove *ddns* >/dev/null 2>&1
+fi
+
+sleep 2
+
 # set ipaddr
 DATE=`date +[%Y-%m-%d]%H:%M:%S`
 echo $DATE" One time init Script: set ipaddr" >> /tmp/one_time_init.log

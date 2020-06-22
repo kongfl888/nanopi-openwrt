@@ -1,6 +1,6 @@
 ## Nanopi r2s openwrt 自用固件
 
-![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean-openwrt%20minimal2/badge.svg) ![r2s-friendlywrt-lean](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s-friendlywrt-lean/badge.svg) ![r2s minimal Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean%E7%89%88openwrt%20minimal/badge.svg)  ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) 
+![r2s Lean-openwrt lite2](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean-openwrt%20lite2/badge.svg) ![r2s minimal2 Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20Lean-openwrt%20minimal2/badge.svg) ![r2s-friendlywrt-lean](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s-friendlywrt-lean/badge.svg)  ![r2s official Build](https://github.com/kongfl888/nanopi-openwrt/workflows/r2s%20%E5%AE%98%E7%89%88friendlywrt/badge.svg) 
 
 ### 代码说明
 
@@ -28,7 +28,7 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 建议不要对它抱有太大的期望。👆
 
-### 发布地址：
+### 发布地址
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
 
@@ -44,23 +44,46 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 [其他R2S可用的软件包](https://github.com/kongfl888/r2s-openwrt-packages/blob/master/README.md)
 
-### 温馨提示：
+### 刷机
+
+你可以有三种方法
+
+一、打开WEB页面，
+	
+使用 [R2S刷机](https://github.com/kongfl888/luci-app-r2sflasher/releases)
+
+二、打开SSH，
+
+    ``cd /tmp && wget https://raw.githubusercontent.com/kongfl888/nanopi-openwrt/master/scripts/flash_rom.sh
+    flash_rom /tmp/rom.img.gz /dev/mmcblk0 gz``
+
+三、PC端刷卡
+
+1、Ubuntu下（其中/dev/sdX为TF卡的真实路径）
+
+``sudo dd if=out/FriendlyWrt_20xxxx_NanoPi-R1_armhf_sd.img bs=1M of=/dev/sdX``
+
+2、Windows系统
+
+下载 [balenaEtcher](http://www.ksite.xyz/contents/balena-etcher.html)，插卡刷机
+    
+### 登录
 
 路由器登陆页面： http://friendlywrt/
 
-默认用户名是root, 密码是 password 或 空密码。
+默认用户名是``root``, 密码是 ``password`` 或 ``空密码``。
 
-### 三外设说明：
+### 三外设说明
 
 tf卡直接影响系统启动速度。建议使用C10+卡，卡容量大小至少4GB。开机后连不上，等待5分钟后直接断电重启！
 
 电流不稳或波动大直接影响板子的正常运行
 
-USB可能会导致IO流冲突，因为有一个千兆网口就是USB3转过来的
+USB可能会导致IO冲突，因为有一个千兆网口就是USB3转过来的
 
-### 更新说明：
+### 更新说明
 
-[核心更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md)
+[Minimal的更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md) 、[LEAN-LEDE的更新说明](https://github.com/coolsnowwolf/lede/commits/master)
 
 #### 本固件(minimal版本)NAT基准性能测试：
 

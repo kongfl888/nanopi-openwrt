@@ -123,7 +123,7 @@ jobs:
       - name: Add smartdns
         run: |
           git clone -b master --single-branch https://github.com/pymumu/openwrt-smartdns.git
-          git clone -b master --single-branch https://github.com/pymumu/luci-app-smartdns.git
+          git clone -b lede --single-branch https://github.com/pymumu/luci-app-smartdns.git
           mv luci-app-smartdns friendlywrt-rk3328/friendlywrt/package
           mkdir -p friendlywrt-rk3328/friendlywrt/package/net/smartdns
           mv openwrt-smartdns/* friendlywrt-rk3328/friendlywrt/package/net/smartdns

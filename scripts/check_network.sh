@@ -29,18 +29,31 @@ get_eth_pending() {
   echo $if_status | jsonfilter -e "@['pending']"
 }
 
+get_eth_error() {
+  if ! if_status=$(ifstatus $1); then
+    echo "-1"
+    return 1
+  fi
+  #strings or empty
+  echo $if_status | jsonfilter -e "@['errors']"
+}
+
 DATE=`date +[%Y-%m-%d]%H:%M:%S`
 
 logger 'Check Network: Script started!'
 echo $DATE" Check Network: Script started!" > /tmp/check_network.log
+
+okwait=120s
 
 lgetipfail=0
 wgetipfail=0
 landown=0
 wandown=0
 wpending=0
+werror=0
 
 while :; do
+    # 1st check
     sleep 30
 
     if ! lan_addr1=$(get_ipv4_address lan); then
@@ -85,18 +98,19 @@ while :; do
         echo $DATE" [Check Network] wan is down. network restarting" >> /tmp/check_network.log
         /etc/init.d/network restart >/dev/null 2>&1
     else
-        echo $DATE" 1st while break." >> /tmp/check_network.log
+        echo $DATE" 1st break successfully. Running 2nd check." >> /tmp/check_network.log
         logger "Check Network: 1st check is ok. Running 2nd check."
         break
     fi
-    sleep 90
+    sleep 30
 done
 
 fail_countl=0
 fail_countw=0
 
 while :; do
-    sleep 30s
+    # 2nd check
+    sleep 60s
 
     wpending=0
 
@@ -106,6 +120,12 @@ while :; do
     if wanpend=$(get_eth_pending wan); then
         if [ "$wanpend" = "true" ]; then
             wpending=1
+        fi
+    fi
+
+    if werrorstr=$(get_eth_error wan); then
+        if [ -n "$werrorstr" ]; then
+            werror=1
         fi
     fi
 
@@ -134,10 +154,13 @@ while :; do
             fail_countw=$((fail_countw + 1))
         elif [ $wpending -eq 0 ]; then
             fail_countw=$((fail_countw + 1))
+        elif [ $errors -ne 0 ]; then
+            fail_countw=$((fail_countw + 1))
         fi
     fi
-    
+
     if [ $fail_countl -eq 0 -a $fail_countw -eq 0 ]; then
+        sleep $okwait
         continue
     fi
 
@@ -152,12 +175,19 @@ while :; do
     if [ $fail_count -ge 5 ]; then
         # try again!
         wpending=0
+        werror=0
         lan_addr=$(get_ipv4_address lan)
         wan_addr=$(get_ipv4_address wan)
 
         if wanpend=$(get_eth_pending wan); then
             if [ "$wanpend" = "true" ]; then
                 wpending=1
+            fi
+        fi
+
+        if werrorstr=$(get_eth_error wan); then
+            if [ -n "$werrorstr" ]; then
+                werror=1
             fi
         fi
 
@@ -172,8 +202,11 @@ while :; do
             mokw=0
         elif [ $wpending -ne 0 ]; then
             mokw=1
+        elif [ $werror -eq 0 ]; then
+            mokw=1
         fi
         if [ $mokl -eq 1 -a $mokw -eq 1 ]; then
+            sleep $okwait
             continue
         fi
 
@@ -207,6 +240,7 @@ while :; do
         esac
 
         if [ $mokl -eq 1 -a $mokw -eq 1 ]; then
+            sleep $okwait
             continue
         fi
 
@@ -215,6 +249,6 @@ while :; do
         echo $DATE" Check Network: Network problem! Network reloading..." >> /tmp/check_network.log
         logger 'Check Network: Network problem! Network reloading...'
         /etc/init.d/network restart >/dev/null 2>&1
-        sleep 80
+        sleep 90
     fi
 done

@@ -85,6 +85,11 @@ USB可能会导致IO冲突，因为有一个千兆网口就是USB3转过来的
 
 [Minimal的更新内容](https://github.com/klever1988/nanopi-openwrt/blob/master/CHANGELOG.md) 、[LEAN-LEDE的更新说明](https://github.com/coolsnowwolf/lede/commits/master)
 
+固件菜单预览
+
+Minimal2  -  Lite2
+![Minimal2.gif](./assets/mini2.gif) - ![Lite2.gif](./assets/lite2.gif)
+
 #### 本固件(minimal版本)NAT基准性能测试：
 
 <img src="https://github.com/klever1988/nanopi-openwrt/raw/master/assets/NAT.jpg" width="600" /><img src="https://raw.githubusercontent.com/klever1988/nanopi-openwrt/master/assets/Acc.jpg" width="250" />

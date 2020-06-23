@@ -90,7 +90,7 @@ jobs:
       - name: Add Luci-app-r2sflasher
         run: |
           git clone -b master --single-branch https://github.com/kongfl888/luci-app-r2sflasher.git
-          mv luci-app-r2sflasher friendlywrt-rk3328/friendlywrt/package
+          mv luci-app-r2sflasher rk3328/friendlywrt/package/
 
       # refer to klever1988/nanopi-openwrt, modified by Chuck <fanck0605@qq.com>
       - name: Install Openwrt patches

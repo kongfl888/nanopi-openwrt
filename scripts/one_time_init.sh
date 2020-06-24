@@ -23,15 +23,18 @@ sed -i '/<%:CPU Info%><\/td>/i\\t\t<tr><td width="33%"><%:Architecture%></td><td
 DATE=`date +[%Y-%m-%d]%H:%M:%S`
 echo $DATE" One time init Script: disable some boot items" >> /tmp/one_time_init.log
 sleep 1s
-/etc/init.d/iptvhelper stop
-sleep 1s
-/etc/init.d/mwan3helper stop
-sleep 3s
-/etc/init.d/mwan3 stop
-sleep 1s
-/etc/init.d/mwan3 disable
-/etc/init.d/mwan3helper disable
-/etc/init.d/iptvhelper disable
+
+if [ -e "/etc/init.d/iptvhelper" ]; then
+    /etc/init.d/iptvhelper stop
+    /etc/init.d/iptvhelper disable
+fi
+
+if [ -e "/etc/init.d/mwan3" ]; then
+    /etc/init.d/mwan3helper stop
+    /etc/init.d/mwan3 stop
+    /etc/init.d/mwan3 disable
+    /etc/init.d/mwan3helper disable
+fi
 
 # fix autorewan
 if [ -e "/etc/init.d/autorewan" ]; then

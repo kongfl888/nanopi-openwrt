@@ -34,6 +34,8 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 [friendlywrt官版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s%20%E5%AE%98%E7%89%88friendlywrt%22)（打 ✔ 的）
 
+[网盘分流](https://github.com/kongfl888/nanopi-openwrt/blob/master/README.txt)
+
 （彻底解压出来，img包才是最终固件格式）
 
 ### 一些软件包
@@ -88,7 +90,8 @@ USB可能会导致IO冲突，因为有一个千兆网口就是USB3转过来的
 固件菜单预览
 
 Minimal2  -  Lite2
-![Minimal2.gif](./assets/mini2.gif) - ![Lite2.gif](./assets/lite2.gif)
+
+![Minimal2.gif](./assets/mini2.gif) .  -  . ![Lite2.gif](./assets/lite2.gif)
 
 #### 本固件(minimal版本)NAT基准性能测试：
 

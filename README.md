@@ -56,8 +56,8 @@ usb-wifi驱动有，就网上常见的芯片，👇
 
 二、打开SSH，
 
-    ``cd /tmp && wget https://raw.githubusercontent.com/kongfl888/nanopi-openwrt/master/scripts/flash_rom.sh
-    flash_rom /tmp/rom.img.gz /dev/mmcblk0 gz``
+``cd /tmp && wget https://raw.githubusercontent.com/kongfl888/nanopi-openwrt/master/scripts/flash_rom.sh
+flash_rom /tmp/rom.img.gz /dev/mmcblk0 gz``
 
 三、PC端刷卡
 

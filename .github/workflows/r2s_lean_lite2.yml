@@ -62,7 +62,6 @@ jobs:
           cat ../base_rk3328.seed > configs/config_rk3328
           sed -i '/ddns/d' configs/config_rk3328 && echo ""
           cat ../JUNK/r2s_minimal2_user_par1.seed >> configs/config_rk3328
-          #cat ../JUNK/r2s_minimal2_user_par2.seed >> configs/config_rk3328
           cd friendlywrt
           git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
           git remote add upstream https://github.com/coolsnowwolf/lede && git fetch upstream
@@ -133,18 +132,16 @@ jobs:
           mkdir -p friendlywrt-rk3328/friendlywrt/package/net/smartdns
           mv openwrt-smartdns/* friendlywrt-rk3328/friendlywrt/package/net/smartdns
 
-      - name: Add IPTV Helper
-        run: |
-          git clone -b master --single-branch https://github.com/riverscn/openwrt-iptvhelper.git
-          mv openwrt-iptvhelper/iptvhelper friendlywrt-rk3328/friendlywrt/package
-          mv openwrt-iptvhelper/luci-app-iptvhelper friendlywrt-rk3328/friendlywrt/package
-          sed -i 's/+luci-compat //' friendlywrt-rk3328/friendlywrt/package/luci-app-iptvhelper/Makefile
-          sed -i 's/+luci-compat//g' friendlywrt-rk3328/friendlywrt/package/luci-app-iptvhelper/Makefile
-
       - name: Add Luci-app-r2sflasher
         run: |
           git clone -b master --single-branch https://github.com/kongfl888/luci-app-r2sflasher.git
           mv luci-app-r2sflasher friendlywrt-rk3328/friendlywrt/package
+
+      - name: Update Feeds
+        run: |
+          cd friendlywrt-rk3328/friendlywrt
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
 
       - name: Build FriendlyWrt
         run: |

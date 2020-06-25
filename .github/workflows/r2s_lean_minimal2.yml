@@ -193,7 +193,7 @@ jobs:
           cd ./r2srom/ipk/
           sha256sum *ipk > packages.sha256
           cd ../../
-          cp ./README.txt ./r2srom/
+          cp ./Original2.txt ./r2srom/
           zip -r artifact.zip ./r2srom/
           #release_tag="R2S-Lean-$(date +%Y-%m-%d-%H)-Minimal2"
           release_tag="R2S-Minimal2-$(date +%Y-%m-%d-%H)"

@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir friendlywrt-rk3328
           cd friendlywrt-rk3328
-          repo init -u https://github.com/friendlyarm/friendlywrt_manifests -b master -m rk3328.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle
+          repo init -u https://github.com/friendlyarm/friendlywrt_manifests -b master-v19.07.1 -m rk3328.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle
           
       - name: Mods
         run: |
@@ -52,30 +52,68 @@ jobs:
           #cp ../JUNK/rk3328.xml .repo/manifests/rk3328.xml
           repo sync -c  --no-clone-bundle
           #. ../remove_unused_config.sh
-          sed -i 's/CONFIG_BPFILTER=y/CONFIG_BPFILTER=n/' kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
+          #. ../patch_dosth.sh
+          #sed -i 's/CONFIG_BPFILTER=y/CONFIG_BPFILTER=n/' kernel/arch/arm64/configs/nanopi-r2_linux_defconfig
           sed -i 's/dnsmasq /dnsmasq-full /' friendlywrt/include/target.mk
           #cp ../JUNK/r2s.config.seed configs/config_rk3328
+          sed -i '/adblock/d' configs/config_rk3328 >/dev/null 2>&1
           echo '
+          CONFIG_PACKAGE_bash=y
+          CONFIG_PACKAGE_usbutils=y
+          CONFIG_PACKAGE_pv=y
+          CONFIG_PACKAGE_unzip=y
+          CONFIG_PACKAGE_losetup=y
+          CONFIG_PACKAGE_zstd=y
+          CONFIG_PACKAGE_check-network=y
+          CONFIG_PACKAGE_luci-lib-nixio=y
           CONFIG_PACKAGE_luci-app-adbyby-plus=y
           CONFIG_PACKAGE_luci-app-r2sflasher=y
+          CONFIG_PACKAGE_luci-app-autorewan=y
+          CONFIG_PACKAGE_luci-theme-argon=y
           ' >> configs/config_rk3328
+          cd friendlywrt
+          mv ../../scripts/one_time_init.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/one_time_init.sh 1 &' package/base-files/files/etc/rc.local
+          echo -e '\nMr.K Build\n' >> package/base-files/files/etc/banner
+
+      - name: Clean Feeds
+        run: |
+          cd friendlywrt-rk3328/friendlywrt
+          ./scripts/feeds clean -a
+
+      - name: Add Luci-theme-argon
+        run: |
+          mkdir -p friendlywrt-rk3328/friendlywrt/package/lean/ || echo ""
+          rm -rf friendlywrt-rk3328/friendlywrt/package/lean/luci-theme-argon || echo ""
+          git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
+          mv -f luci-theme-argon friendlywrt-rk3328/friendlywrt/package/lean/
 
       - name: Add Luci-app-r2sflasher
         run: |
           git clone -b master --single-branch https://github.com/kongfl888/luci-app-r2sflasher.git
           mv luci-app-r2sflasher friendlywrt-rk3328/friendlywrt/package
 
-      - name: Clean Feeds
+      - name: Add Luci-app-autorewan
+        run: |
+          git clone -b master --single-branch https://github.com/kongfl888/luci-app-autorewan.git
+          mv luci-app-autorewan friendlywrt-rk3328/friendlywrt/package
+
+      - name: Add check-network
+        run: |
+          git clone -b master --single-branch https://github.com/kongfl888/check-network.git
+          mv check-network friendlywrt-rk3328/friendlywrt/package
+
+      - name: Update Feeds
         run: |
           cd friendlywrt-rk3328/friendlywrt
-          ./scripts/feeds clean -a
-                    
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
       - name: Build FriendlyWrt
         run: |
           cd friendlywrt-rk3328
           sed -i 's/set -eu/set -u/' scripts/mk-friendlywrt.sh
           ./build.sh nanopi_r2s.mk
-      
+
       - name: Zip Files
         run: |
           gzip friendlywrt-rk3328/out/*.img
@@ -84,6 +122,9 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           mv friendlywrt-rk3328/out/*img* ./artifact/
+          cd ./artifact/
+          sha256sum *img* > sha256sum.txt
+          cd ..
           cp friendlywrt-rk3328/friendlywrt/.config ./artifact/
       - name: Upload Artifact
         uses: actions/upload-artifact@master

@@ -3,6 +3,37 @@
 # built
 # mv ../../scripts/one_time_init.sh package/base-files/files/usr/bin && sed -i '/exit/i\/bin/sh /usr/bin/one_time_init.sh &' package/base-files/files/etc/rc.local
 # https://github.com/kongfl888/nanopi-openwrt
+# ** 1st: 1 normal, 2 lite; 2nd: 1 original, 2 lite2
+
+lite=0
+profile=0
+
+if [ ! -z "${1}" ];then
+    let pf=${1}%10
+    case $pf in
+    1)
+        profile=1
+        ;;
+    2)
+        profile=2
+        ;;
+    *)
+        profile=0
+        ;;
+    esac
+    let lt=${1}/10
+    case $lt in
+    1)
+        lite=0
+        ;;
+    2)
+        lite=1
+        ;;
+    *)
+        lite=0
+        ;;
+    esac
+fi
 
 sleep 15s
 
@@ -49,11 +80,11 @@ fi
 sleep 2s
 
 # remove ddns
-if [ "${1}" = "1" ]; then
+if [ "$lite" = "1" ]; then
     #lite2
     DATE=`date +[%Y-%m-%d]%H:%M:%S`
     echo $DATE" One time init Script: remove ddns" >> /tmp/one_time_init.log
-    opkg remove *ddns* >/dev/null 2>&1
+    opkg remove *ddns* --autoremove >/dev/null 2>&1
 fi
 
 sleep 2
@@ -63,6 +94,38 @@ DATE=`date +[%Y-%m-%d]%H:%M:%S`
 echo $DATE" One time init Script: set ipaddr" >> /tmp/one_time_init.log
 uci set network.lan.ipaddr=192.168.31.3
 uci commit network
+
+# close ipv6
+if [ "$profile" = "1" -o "$lite" = "1" ]; then
+uci set network.wan.ipv6="0"
+uci delete network.lan.ip6assign
+uci commit network
+fi
+
+# set theme
+if [ "$profile" = "1" ]; then
+DATE=`date +[%Y-%m-%d]%H:%M:%S`
+echo $DATE" One time init Script: set theme" >> /tmp/one_time_init.log
+uci set luci.main.lang='zh_cn'
+uci set luci.main.mediaurlbase ='/luci-static/argon'
+uci set luci.diag.dns='baidu.com'
+uci set luci.diag.ping='baidu.com'
+uci set luci.diag.route='baidu.com'
+uci commit luci
+fi
+
+# set ntp time
+if [ "$profile" = "1" ]; then
+DATE=`date +[%Y-%m-%d]%H:%M:%S`
+echo $DATE" One time init Script: set ntp time" >> /tmp/one_time_init.log
+sed -i 's/0.openwrt.pool.ntp.org/ntp1.aliyun.com/g' /etc/config/system
+sed -i 's/1.openwrt.pool.ntp.org/ntp2.aliyun.com/g' /etc/config/system
+sed -i 's/2.openwrt.pool.ntp.org/0.openwrt.pool.ntp.org/g' /etc/config/system
+sed -i 's/3.openwrt.pool.ntp.org/1.openwrt.pool.ntp.org/g' /etc/config/system
+uci set system.@system[0].timezone="CST-8"
+uci set system.@system[0].zonename="Asia/Shanghai"
+uci commit system
+fi
 
 sleep 3
 # restart network

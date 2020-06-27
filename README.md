@@ -14,6 +14,8 @@ minimal版本就是Lean版opwenwrt的最小编译，加入Turbo加速和一两�
 
 r2s-friendlywrt-lean版是基于[fanck0605/friendlywrt-lean](https://github.com/fanck0605/friendlywrt-lean) 编译的版本，friendlywrt-lean由该作者主动维护，它的代码比较整洁。
 
+其中Original为原生openwrt（版本19.07.1）的r2s固件。
+
 而minimal2 ——本人日常版本—— 则是在minimal版的基础上加入最基本的NAS应用：网络共享(samba)、下载工具和硬盘休眠，以及家庭网络必备的minidlna。再挂个QOS留用。软路由空间大，没个samba实在是浪费。
 
 多播还是没有，因为我这边好像不支持多播，测试不了所以不想加（好吧，因为iptv所以一起加了）。另，[关于MWAN3掉线的解决方案](https://koolshare.cn/thread-150601-1-1.html)（可以改用114DNS）、[IPTV教程](https://github.com/riverscn/openwrt-iptvhelper/blob/master/README.md)
@@ -31,8 +33,6 @@ usb-wifi驱动有，就网上常见的芯片，👇
 ### 发布地址
 
 [下载传送门](https://github.com/kongfl888/nanopi-openwrt/releases)
-
-[friendlywrt官版](https://github.com/kongfl888/nanopi-openwrt/actions?query=workflow%3A%22r2s%20%E5%AE%98%E7%89%88friendlywrt%22)（打 ✔ 的）
 
 [网盘分流](https://github.com/kongfl888/nanopi-openwrt/blob/master/README.txt)
 
